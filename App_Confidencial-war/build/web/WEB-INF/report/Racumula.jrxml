@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="R_Acum_Decimos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c42d6884-e7b8-41b0-a066-7bf58f24bf11">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="80"/>
+	<parameter name="imagen_sello_he1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="vUsuariosClasif_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[/* Formatted on 04/05/2015 14:14:42 (QP5 v5.252.13127.32867) */
+  SELECT    'Quito D.M., '
+         || TO_CHAR (SYSDATE, 'fmday', 'nls_date_language = spanish')
+         || ', '
+         || TO_CHAR (SYSDATE, 'fmdd', 'nls_date_language = spanish')
+         || ' de '
+         || TO_CHAR (SYSDATE, 'fmmonth', 'nls_date_language = spanish')
+         || ' de '
+         || TO_CHAR (SYSDATE, 'fmyyyy', 'nls_date_language = spanish')
+            texto_fecha,
+            'Yo, '
+         || INITCAP (V_USUARIOS_CLASIF.APELLIDOS)
+         || ' '
+         || INITCAP (V_USUARIOS_CLASIF.NOMBRES)
+         || ', con cédula de identidad No.'
+         || SEGURIDADES.V_USUARIOS_CLASIF.CEDULA_LOGIN
+         || ' amparado en el Articulo 21, 22, 60 y 61 de la LEY ORGÁNICA PARA LA JUSTICIA LABORAL Y '
+         || 'RECONOCIMIENTO DEL TRABAJO EN EL HOGAR, la misma que fue publicada  '
+         || ' en el Registro Oficial No. 483 del 20 de abril 2015, autorizo a la Unidad de Recursos Humanos '
+         || ' , sección sueldos, a que realice la acumulación de los siguientes beneficios:'
+            detalle,
+         ACUMULA_DECIMO.TIPO,
+         ACUMULA_DECIMO.ACCION,
+         SEGURIDADES.V_USUARIOS_CLASIF.CEDULA_LOGIN,
+            INITCAP (V_USUARIOS_CLASIF.APELLIDOS)
+         || ' '
+         || INITCAP (V_USUARIOS_CLASIF.NOMBRES)
+            NOMBRES
+    FROM SEGURIDADES.V_USUARIOS_CLASIF
+         INNER JOIN NOMINA.ACUMULA_DECIMO
+            ON (V_USUARIOS_CLASIF.NOM_ID = ACUMULA_DECIMO.PRN_ID_PERSONAL)
+   WHERE V_USUARIOS_CLASIF.ID = $P{vUsuariosClasif_id} AND ACUMULA_DECIMO.ANIO = 2015
+ORDER BY ACUMULA_DECIMO.TIPO DESC]]>
+	</queryString>
+	<field name="TEXTO_FECHA" class="java.lang.String"/>
+	<field name="DETALLE" class="java.lang.String"/>
+	<field name="TIPO" class="java.lang.String"/>
+	<field name="ACCION" class="java.lang.String"/>
+	<field name="CEDULA_LOGIN" class="java.lang.String"/>
+	<field name="NOMBRES" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="133" splitType="Stretch">
+			<image>
+				<reportElement x="219" y="23" width="110" height="88" uuid="5b91a3cf-25b0-4b66-8a13-36b68820b693"/>
+				<imageExpression><![CDATA[$P{imagen_sello_he1}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="111" splitType="Stretch">
+			<staticText>
+				<reportElement x="98" y="10" width="389" height="30" uuid="af1814ea-4213-4114-a349-161035b86a39"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMANDO CONJUNTO DE LAS FF.AA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="40" width="494" height="29" uuid="56e60f7e-ef2f-4c06-b893-edde2e35968b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HOSPITAL DE ESPECIALIDADES FUERZAS ARMADAS No. 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="69" width="392" height="25" uuid="ec050160-24c5-4dd6-8a9c-c8ac2c33fc6c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCIÓN DE RECURSOS HUMANOS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="316" splitType="Stretch">
+			<textField>
+				<reportElement x="55" y="49" width="389" height="20" uuid="87db3843-d58d-4b8c-9b74-5e9199dba9c9"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TEXTO_FECHA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="90" width="380" height="215" uuid="9d3a8084-948a-42af-bfe7-27c8a31ba62d"/>
+				<textElement textAlignment="Justified">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DETALLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement x="344" y="0" width="100" height="34" uuid="678ca339-f4ff-4273-8098-1532592714ab"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ACCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="98" y="0" width="209" height="34" uuid="31d6bac9-ec6d-4ca5-9437-a96020c29beb"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="98" y="0" width="149" height="20" uuid="42796bc4-e652-453c-bf34-654f8513dd09"/>
+				<text><![CDATA[Atentamente,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="122" y="40" width="334" height="20" uuid="abacb8c6-cf1f-43bf-ab2d-680e69798d8e"/>
+				<textFieldExpression><![CDATA[$F{CEDULA_LOGIN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="98" y="40" width="19" height="20" uuid="4ddbd60a-07bc-499f-a4d6-2d9e264e3764"/>
+				<text><![CDATA[CC:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="98" y="20" width="358" height="20" uuid="f969ff66-144f-4475-a938-76c17cbf5e75"/>
+				<textFieldExpression><![CDATA[$F{NOMBRES}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="172" y="0" width="383" height="23" uuid="5f827523-4b92-4ae5-88bf-3320d0f7476b"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[LEY DE COMERCIO ELECTRÓNICO, FIRMAS Y MENSAJES DE DATOS
+Art. 2, Art.3, Art.5,  Art.6
+]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

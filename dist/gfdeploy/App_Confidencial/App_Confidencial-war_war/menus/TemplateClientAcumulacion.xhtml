@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template/Template.xhtml">
+
+            <ui:define name="center">
+
+                <h:form id="form1">
+                    <p:growl id="messages" showDetail="false"/>
+                    <h:panelGrid id="pg1" style="width: 95%;text-align:center"  columns="1" >
+                        <center>
+                            <h:panelGroup>
+
+                                <h2 align="center">
+                                    <h:outputText style="text-align:center" value="Hospital de Especialidades de las Fuerzas Armadas N°. 1"/>
+                                </h2>
+                                <h3 align="center">
+                                    <h:outputText style="text-align:center" value="Dirección de Recursos Humanos"/>
+                                </h3>
+                                <h3 align="center">
+                                    <h:outputText style="text-align:center" value="Sección Sueldos"/>
+                                </h3>
+
+                                <h:panelGroup>
+                                    <center>
+                                        <h:panelGrid   border="1" style="font-size: 13px;width: 50%"   columns="2">
+
+                                            <p:outputLabel value="Documento de identificación:" for="prnNumdocumento" />
+                                            <p:outputLabel id="prnNumdocumento" value="#{colaborador.personalNomina.prnNumdocumento}" title="PrnNumdocumento" />
+                                            <p:outputLabel value="Apellidos:" for="prnApellidos" />
+                                            <p:outputLabel id="prnApellidos" value="#{colaborador.personalNomina.prnApellidos}" title="PrnApellidos" />
+                                            <p:outputLabel value="Nombres:" for="prnNombres" />
+                                            <p:outputLabel id="prnNombres" value="#{colaborador.personalNomina.prnNombres}" title="PrnNombres" />
+                                            <p:outputLabel value="Régimen Laboral:"  />
+                                            <p:outputLabel  value="#{colaborador.personalNomina.tipoRelacionLaboral.regimenLaboral.rglRegimenlaboral}"  />
+                                            <p:outputLabel value="Relación laboral:"  />
+                                            <p:outputLabel  value="#{colaborador.personalNomina.tipoRelacionLaboral.trlTiporelacion}"  />
+                                        </h:panelGrid>
+
+                                        <br/>
+                                        <br/>
+
+                                    </center>
+                                </h:panelGroup>
+
+                            </h:panelGroup>
+                        </center>
+                    </h:panelGrid>
+
+                    <h2>
+                        <h:outputText style="font-size: 28px;font-family:arial,helvetica,sans-serif;color: coral"  value="Solicitud de Acumulación Beneficios"/>
+                    </h2>
+
+
+
+
+
+
+                </h:form>
+                <h:form>
+                    <p:growl id="messages" showDetail="false"/>
+                    <center>
+                        <p:panelGrid style="font-size: 13px;width: 40%;text-align:center"   columns="1"  columnClasses="label,value">
+
+                            <table align="center" width="100%">
+                                <tr>
+                                    <td>
+                                        <p:outputLabel style="font-size: 15px;font-weight: bold"  value="Décima tercera Remuneración (Navidad):" />
+                                    </td>
+                                    <td align="center">
+                                        <center>
+                                            <p:selectOneRadio disabled="#{(colaborador.habilitaDecimos=='0')?true:false}" id="dts" value="#{colaborador.decimotercer}" > 
+                                                <p:ajax event="blur" listener="#{colaborador.listenDecimotercero(event)}"/>
+                                                <f:selectItems value="#{colaborador.sino}" var="c" itemLabel="#{decimotercer}" itemValue="#{decimotercer}"/>
+                                            </p:selectOneRadio>
+                                        </center>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:outputLabel style="font-size: 15px;font-weight: bold"  value="Décima Cuarta Remuneración (Escolar):" />
+                                    </td>
+                                    <td align="center">
+                                        <center>
+                                            <p:selectOneRadio   style="font-weight: bold" disabled="#{(colaborador.habilitaDecimos=='0')?true:false}"  id="dts2" value="#{colaborador.decimocuarto}" >     
+                                                <p:ajax event="blur" listener="#{colaborador.listenDecimocuarto(event)}"/>
+                                                <f:selectItems value="#{colaborador.sino}" var="c" itemLabel="#{decimocuarto}" itemValue="#{decimocuarto}"/>
+                                            </p:selectOneRadio>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+
+                            <p:commandButton id="cmb1" disabled="#{(colaborador.habilitaDecimos=='0')?true:false}" style="font-size: 13px;"  value="Guardar"  process="@form" update="@form" action="#{colaborador.buttonActionGrabar()}"/>
+
+                        </p:panelGrid>
+                        <center>
+                            <h:panelGrid  style="text-align: center" >
+                                <h:panelGroup>
+                                    <a target="_blank" style="font-size: 15px;font-family:arial,helvetica,sans-serif;color: blue" href="#{colaborador.direccionReporteAcumulaDecimos}">
+                                        Ver: Reporte
+                                    </a>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <a target="_blank" style="font-size: 15px;font-family:arial,helvetica,sans-serif;color: blue" href="http://www.trabajo.gob.ec/wp-content/uploads/downloads/2015/04/A.-M.-No.-0087-Norma-para-el-pago-de-la-decimotercera-y-decimocuarta-remuneraci%C3%B3n.pdf">
+                                        Ver: Acuerdo Ministerial
+                                    </a>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <a target="_blank" style="font-size: 15px;font-family:arial,helvetica,sans-serif;color: blue" href="http://www.asambleanacional.gob.ec/es/system/files/ro_ley_organica_para_la_justicia_laboral_y_reconocimiento_del_trabajo_en_el_hogar_ro_3er_supl_20-04-2015.pdf">
+                                        Ver: Ley Organica
+                                    </a>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <a target="_blank" style="font-size: 15px;font-family:arial,helvetica,sans-serif;color: blue" href="http://www.trabajo.gob.ec/wp-content/uploads/downloads/2015/04/A.-M.-No.-0087-Norma-para-el-pago-de-la-decimotercera-y-decimocuarta-remuneraci%C3%B3n.pdf">
+                                        Ver: Normativa
+                                    </a>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </center>
+
+                    </center>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

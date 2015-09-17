@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <body>
+
+        <ui:composition template="./../template/Template.xhtml">
+
+            <ui:define name="center">
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="INFORMACIÓN LABORAL"/></h1>
+                        <p:tabView style="font-size: 13px;width: 90%;height: 100%"  >
+                            <p:tab title="Datos Personales">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <p:outputLabel value="Documento de identificación:" for="prnNumdocumento" />
+                                    <p:outputLabel id="prnNumdocumento" value="#{colaborador.personalNomina.prnNumdocumento}" title="PrnNumdocumento" />
+                                    <p:outputLabel value="Apellidos:" for="prnApellidos" />
+                                    <p:outputLabel id="prnApellidos" value="#{colaborador.personalNomina.prnApellidos}" title="PrnApellidos" />
+                                    <p:outputLabel value="Nombres:" for="prnNombres" />
+                                    <p:outputLabel id="prnNombres" value="#{colaborador.personalNomina.prnNombres}" title="PrnNombres" />
+                                    <p:outputLabel value="Fecha nacimiento:" for="prnFechanacimiento" />
+                                    <p:outputLabel id="prnFechanacimiento" value="#{(colaborador.personalNomina.prnFechanacimiento==null)?'SD':colaborador.personalNomina.prnFechanacimiento }" title="PrnFechanacimiento" >
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </p:outputLabel>
+                                    <p:outputLabel value="Lugar de nacimiento:" for="prnLugarnacimiento" />
+                                    <p:outputLabel id="prnLugarnacimiento" value="#{(colaborador.personalNomina.prnLugarnacimiento==null)?'SD':colaborador.personalNomina.prnLugarnacimiento  }" title="PrnLugarnacimiento" />
+                                                                                                              <p:outputLabel value="Género:"  />
+                                    <p:outputLabel id="prnSexo" value="#{(colaborador.personalNomina.prnSexo=='M'?'Masculino':'Femenino')}" title="PrnSexo" />
+                                    <p:outputLabel value="Estado Civil:" />
+                                    <p:outputLabel  value="#{(colaborador.personalNomina.prnEstadocivil=='C')?'Casado':((colaborador.personalNomina.prnEstadocivil=='S')?'Soltero':(colaborador.personalNomina.prnEstadocivil=='V')?'Viudo':(colaborador.personalNomina.prnEstadocivil=='U')?'Union Libre':(colaborador.personalNomina.prnEstadocivil=='D')?'Divorciado':'SD')}"  />
+
+                                    <p:outputLabel value="Tipo de sangre:"  />
+                                    <p:outputLabel id="prnTiposangre" value="#{colaborador.personalNomina.prnTiposangre}" title="PrnTiposangre" />
+
+
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Datos de ubicacion">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <p:outputLabel value="Email:" for="prnCorreoelectronico" />
+                                    <p:outputLabel id="prnCorreoelectronico" value="#{colaborador.personalNomina.prnCorreoelectronico}" title="PrnCorreoelectronico" />
+
+                                    <p:outputLabel value="Direccion:" for="prnDireccion" />
+                                    <p:outputLabel id="prnDireccion" value="#{colaborador.personalNomina.prnDireccion}" title="PrnDireccion" />
+                                    <p:outputLabel value="Teléfono:" for="prnTelefonocasa" />
+                                    <p:outputLabel id="prnTelefonocasa" value="#{colaborador.personalNomina.prnTelefonocasa}" title="PrnTelefonocasa" />
+                                    <p:outputLabel value="Celular:" for="prnTelefonomovil" />
+                                    <p:outputLabel id="prnTelefonomovil" value="#{colaborador.personalNomina.prnTelefonomovil}" title="PrnTelefonomovil" />
+
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Información Laboral">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:outputLabel value="Régimen Laboral:"  />
+                                    <p:outputLabel  value="#{colaborador.personalNomina.tipoRelacionLaboral.regimenLaboral.rglRegimenlaboral}"  />
+                                    <p:outputLabel value="Relación laboral:"  />
+                                    <p:outputLabel  value="#{colaborador.personalNomina.tipoRelacionLaboral.trlTiporelacion}"  />
+                                    <p:outputLabel value="Código biométrico:" for="prnIdpersonal" />
+                                    <p:outputLabel id="prnIdpersonal" value="#{colaborador.personalNomina.prnIdpersonal}" title="PrnIdpersonal"   />
+                                    <p:outputLabel value="Código País:" for="pasIdpais" />
+                                    <p:outputLabel id="pasIdpais" value="#{colaborador.personalNomina.pasIdpais}" title="PasIdpais"  />
+                                    <p:outputLabel value="Fecha de ingreso:" for="prnFechaingreso" />
+                                    <p:outputLabel id="prnFechaingreso" value="#{colaborador.personalNomina.prnFechaingreso}" title="PrnFechaingreso" >
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </p:outputLabel>
+                                    <p:outputLabel value="Fecha de salida:" for="prnFechasalida" />
+                                    <p:outputLabel id="prnFechasalida" value="#{colaborador.personalNomina.prnFechasalida}" title="PrnFechasalida" >
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </p:outputLabel>
+                                    <p:outputLabel value="Fecha real de ingreso:" for="prnFecharealingreso" />
+                                    <p:outputLabel id="prnFecharealingreso" value="#{colaborador.personalNomina.prnFecharealingreso}" title="PrnFecharealingreso" >
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </p:outputLabel>
+
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Remuneración">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:outputLabel value="Código del Banco:" for="banIdbanco" />
+                                    <p:outputLabel id="banIdbanco" value="#{colaborador.personalNomina.banIdbanco}" title="BanIdbanco"  />
+
+                                    <p:outputLabel value="Forma de pago:" for="prnFormapago" />
+                                    <p:outputLabel id="prnFormapago" value="#{(colaborador.personalNomina.prnFormapago=='M')?'Mensual':'No especificada'}" title="PrnFormapago" />
+                                    <p:outputLabel value="Número de cuenta:" for="prnCuentabancaria" />
+                                    <p:outputLabel id="prnCuentabancaria" value="#{colaborador.personalNomina.prnCuentabancaria}" title="PrnCuentabancaria" />
+                                    <p:outputLabel value="Valor remuneración:" for="prnSueldo" />
+                                    <p:outputLabel id="prnSueldo" value="#{colaborador.personalNomina.prnSueldo}" title="PrnSueldo" />
+                                    <p:outputLabel value="Tipo de pago:" for="prnTipopagosueldo" />
+                                    <p:outputLabel id="prnTipopagosueldo" value="#{colaborador.personalNomina.prnTipopagosueldo}" title="PrnTipopagosueldo" />
+
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Tallas Uniformes">
+                                <h:panelGrid  columns="2" cellpadding="20">
+                                    <p:outputLabel value="Talla de uniforme:" for="prnTallauniforme" />
+                                    <p:outputLabel id="prnTallauniforme" value="#{colaborador.personalNomina.prnTallauniforme}" title="PrnTallauniforme" />
+                                    <p:outputLabel value="Talla del pantalón::" for="prnTallapantalon" />
+                                    <p:outputLabel id="prnTallapantalon" value="#{colaborador.personalNomina.prnTallapantalon}" title="PrnTallapantalon" />
+                                    <p:outputLabel value="Talla de la Camisa:" for="prnTallacamisa" />
+                                    <p:outputLabel id="prnTallacamisa" value="#{colaborador.personalNomina.prnTallacamisa}" title="PrnTallacamisa" />
+                                    <p:outputLabel value="Talla del calzado:" for="prnTallacalzado" />
+                                    <p:outputLabel id="prnTallacalzado" value="#{colaborador.personalNomina.prnTallacalzado}" title="PrnTallacalzado" />
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Contactos en caso de emergencia">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:outputLabel value="Contacto en caso de emergencia:" for="prnContactoemergencia" />
+                                    <p:outputLabel id="prnContactoemergencia" value="#{colaborador.personalNomina.prnContactoemergencia}" title="PrnContactoemergencia" />
+                                    <p:outputLabel value="Direccion:" for="prnDireccion" />
+                                    <p:outputLabel id="prnDireccion2" value="#{colaborador.personalNomina.prnDireccion}" title="PrnDireccion" />
+                                    <p:outputLabel value="Teléfono:" for="prnTelefonocontactoemr" />
+                                    <p:outputLabel id="prnTelefonocontactoemr" value="#{colaborador.personalNomina.prnTelefonocontactoemr}" title="PrnTelefonocontactoemr" />
+
+
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:tabView>
+
+
+
+                        <p:panelGrid style="font-size: 13px;width: 50%"  columns="2">
+
+
+
+                        </p:panelGrid>
+
+                
+
+                    </h:form>
+                </f:view>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
