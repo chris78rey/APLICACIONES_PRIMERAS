@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../template/Template.xhtml">
+
+            <ui:define name="center">
+
+                <f:view>
+
+
+                    <h:form id="forma1">
+                        <p:growl id="message" showDetail="true" />
+
+
+
+
+                        <h3><h:outputText value="Agregar Evento"/></h3>
+                        <p:panelGrid style="font-size: 13px;color: #000000;font-weight: bold;" columns="2">
+                            <p:outputLabel value="Area:" />
+
+                            <p:selectOneMenu style="font-size: 13px;"    value="#{bitac.bitacora.area}" >
+                                <f:selectItem itemLabel="" itemValue="%" />
+                                <f:selectItems value="#{consulta.lsobtwarebitacora}"  var="item"  itemLabel="#{item.modulo}" itemValue="#{item.modulo}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel  value="Hora de evento:" />
+                            <p:calendar id="datetime" value="#{bitac.date10}" pattern="dd/MM/yyyy HH:mm:ss" />
+
+
+                            <p:outputLabel value="Evento:"  />
+                            <p:inputTextarea rows="3" cols="50" value="#{bitac.bitacora.evento}"  />
+                            <p:outputLabel value="Solucion:" />
+                            <p:inputTextarea rows="10" cols="50" value="#{bitac.bitacora.solucion}"  />
+
+
+
+
+                        </p:panelGrid>
+                        <center>
+
+
+                            <p:commandButton  style="font-size: 13px;"  value="Registrar"  actionListener="#{bitac.buttonAction(actionEvent)}" update="message @form"  >
+                                <p:confirm header="Desea registrar el evento" message="Está seguro?" icon="ui-icon-alert"  />
+                            </p:commandButton>
+
+                            <p:confirmDialog style="font-size: 13px;"  global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+
+                        </center>
+
+
+
+
+
+                        <br/>
+                        <br/>
+
+                        <p:dataTable id="tbl1" paginator="true" rows="4"  style="font-size: 13px;width: 95%"  value="#{bitac.lsegBitacoras}" var="item">
+
+                            <p:column style="font-size: 13px;width: 90px" >
+                                <f:facet name="header">
+                                    <h:outputText value="Hora Registro"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fecha}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="font-size: 13px;width:  90px" >
+                                <f:facet name="header">
+                                    <h:outputText value="Hora Evento"/>
+                                </f:facet>
+                                <h:outputText value="#{item.hora}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="font-size: 13px;width: 10%">
+                                <f:facet name="header">
+                                    <h:outputText value="Area"/>
+                                </f:facet>
+                                <h:outputText value="#{item.area}"/>
+                            </p:column>
+                            <p:column style="font-size: 10px;width:  250px" >
+                                <f:facet name="header">
+                                    <h:outputText value="Evento"/>
+                                </f:facet>
+
+                                <p:inputTextarea  rows="5" cols="40" readonly="true"  value="#{item.evento}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Solucion"/>
+                                </f:facet>
+
+                                <p:inputTextarea  rows="50" cols="100" readonly="true" value="#{item.solucion}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
