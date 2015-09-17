@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      >
+
+    <f:view contentType="text/html">
+        <h:head>
+            <h:head>
+                <f:facet name="first">
+                    <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                    <title>HOSPITAL DE ESPECIALIDADES DE LAS FUERZAS ARMADAS Nº1</title>
+                    <link type="text/css" rel="stylesheet" href="/project/faces/javax.faces.resource/theme.css?ln=cupertino" />
+                </f:facet>
+            </h:head>
+        </h:head>
+
+        <h:body>
+
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north"    size="27%"  resizable="false" closable="true" collapsible="true">
+                    <center>
+                        <p:panel  style="background-color:#c2dfef;height: 75%;width: 75%;">
+                            <center>
+                                <p:graphicImage  url="/resources/images/banner_he_1.png"/>                              
+
+                            </center>
+                        </p:panel>
+                        
+                        <br/>
+                         <p:clock pattern="' Son las 'HH:mm:ss' - 'dd' de 'MMMM' del 'yyyy" mode="server" />
+                    </center>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+
+                </p:layoutUnit>
+
+
+
+                <p:layoutUnit position="west" size="20%" style="font-size: 13px;"      collapsible="false">
+                    <ui:insert name="west">
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $(".ui-panelmenu-content").css("display", "block"); //shows the menuitems
+                                $(".ui-panelmenu-header").addClass("ui-state-active"); //sets the submenu header to active state
+                                $(".ui-icon-triangle-1-e").removeClass("ui-icon-triangle-1-e").addClass("ui-icon-triangle-1-s"); //sets the triangle icon to "expaned" state
+                            }
+                            );
+                        </script>
+                        <h:form id="formatemplatewest"  >
+                            
+                       
+                            
+                            <p:growl id="growl" life="2000" />  
+                            <p:growl id="messages" showDetail="false"/>
+
+                            <p:panelMenu id="pm1"  style="width:300px;font-size: 13px">
+
+                                <p:submenu id="sm1" label="Menú">
+                                    <p:menuitem id="mi1" style="font-size: 13px;"  value="Información Laboral" action="/menus/TemplateClientDatosColaborador"  />
+                                    <p:submenu style="font-size: 13px;" id="ss1" label="Solicitudes de Certificados" >                                        
+                                        <p:menuitem id="mi__"  style="font-size: 13px;width: 264px;" value="Certificado Laboral con firma Original"  action="/menus/TemplateClientSolicitudes"  title= "Certifica la relación laboral con el HE-1, especificando tiempo de servicio, es firmado personalmente por el Director de Talento Humano. 'Este certificado sera atendido en 24 hrs'." />
+                                        <p:menuitem id="mi___" style="font-size: 13px;" value="Certificado Laboral con firma Digital" action="/menus/TemplateClientSolicitudesConFirmaDigital" title="Certifica la relación con el HE-1, especifica tiempo de servicio, legalizado con la firma digitalizada del Director de Talento Humano.'Este certificado es de entrega Inmediata'."  />
+                                        <p:menuitem id="mi____" style="font-size: 13px;" value="Certificado Sueldos" action="/menus/TemplateClientSolicitudesSueldos" title="Certifica la relación laboral con el HE-1 y la remuneracion economica del servidor publico. 'Este certificado sera atendido en 24 hrs'." />
+                                    </p:submenu>
+                                    <p:separator />
+                                    <p:menuitem id="ss2" style="font-size: 13px;" target="_blank"  value="Remuneración" action="/menus/TemplateClientSueldos"  />
+                                    <p:menuitem id="mi-2"  style="font-size: 13px;" value="Acumulación Décimos" action="/menus/TemplateClientAcumulacion" />
+                                </p:submenu>
+
+
+                            </p:panelMenu>
+
+
+
+
+                        </h:form>
+
+             </ui:insert>
+                </p:layoutUnit>
+
+
+
+
+
+                <p:layoutUnit position="center">
+
+                    <center>
+                        <h:form id="formatemplatecenter">
+                            <table>
+                                <tr>
+                                    <td>
+                                <p:menubar  style="font-size: 16px;color: #D20005;font-weight: bold ">                                   
+                                    <p:submenu  style=" background-color: #c2dfef" label="Cedula:#{mbpersonal.findByCedulaLogin.cedulaLogin}"/>
+                                    <p:submenu  style=" background-color: #c2dfef" label="Nombres:#{mbpersonal.findByCedulaLogin.nombres}"/>
+                                    <p:submenu  style=" background-color: #c2dfef" label="Apellidos:#{mbpersonal.findByCedulaLogin.apellidos}"/>
+                                </p:menubar>
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                             
+                                                               
+                               <p:commandLink action="#{mbpersonal.regresaMenuPortal()}" >
+                                            <p:graphicImage value="#{resource['images/menu1.jpg']}" style="width: 65px; height: 50px"/>
+                                            <p:effect type="pulsate" event="click" />
+                                        </p:commandLink>
+                               
+                                 <p:commandLink action="#{mbpersonal.logout()}" >
+                                            <p:graphicImage value="#{resource['images/salir.jpg']}" style="width: 65px; height: 50px"/>
+                                            <p:effect type="pulsate" event="click" />
+                                        </p:commandLink>
+                                
+                               </td>
+                                </tr>
+                            </table>
+
+                        </h:form>
+                        <br/>
+                        <br/>
+                        <ui:insert name="center">
+
+
+
+
+
+                        </ui:insert>
+                    </center>
+
+                </p:layoutUnit>
+
+
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

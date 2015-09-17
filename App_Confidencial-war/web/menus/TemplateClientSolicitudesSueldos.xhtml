@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../template/Template.xhtml">
+
+
+            <ui:define name="center">
+
+
+                <h:form>
+                    <p:growl id="messages" showDetail="false"/>
+                    <h1><h:outputText value="Certificado de sueldos"/></h1>
+                    <p:panelGrid columns="3" style="font-size: 13px;color: #000000;font-weight: bold;width: 75%"  >
+                        <p:outputLabel value="Motivo del Certificado:" for="slcObservacion" />
+                        <p:inputTextarea id="slcObservacion" cols="90" value="#{jSFManagedBeanSolicitudes.certificado.slcObservacion}" title="SlcObservacion" />
+                        <p:commandButton id="cb1" process="@form" update="@form messages" action="#{jSFManagedBeanSolicitudes.grabar3()}" value="Grabar">
+                            <p:confirm header="Confirmación" message="Va usted a agregar, una solicitud?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </p:panelGrid>
+
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+
+                    <h1><h:outputText value="Lista de Certificados"/></h1>
+                    <p:dataTable id="tb2" value="#{jSFManagedBeanSolicitudes.lsolicitudes3}" rows="4" paginator="true" style="font-size: 13px;color: #000000;font-weight: bold;width: 75%" var="item">
+                        <p:column width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="Fecha de Solicitud"/>
+                            </f:facet>
+                            <h:outputText value="#{item.slcFechaSolicitud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Motivo del Certificado"/>
+                            </f:facet>
+                            <p:inputTextarea readonly="true" cols="90" value="#{item.slcObservacion}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

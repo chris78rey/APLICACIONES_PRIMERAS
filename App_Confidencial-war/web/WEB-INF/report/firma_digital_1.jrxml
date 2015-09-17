@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="firma_digital" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1b228bee-fe42-4309-a045-a620509833cd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="38"/>
+	<parameter name="CI" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="escudo" class="java.lang.String">
+		<defaultValueExpression><![CDATA["http://servicios.he1.mil.ec/AppImg/resources/images/escudo.png"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="firma" class="java.lang.String">
+		<defaultValueExpression><![CDATA["http://servicios.he1.mil.ec/AppImg/resources/images/firmapng.png"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT    'Qué '
+       || (CASE
+              WHEN nomina.personal.PRN_SEXO = 'M' THEN ' el Sr. '
+              ELSE ' la Sra. '
+           END)
+       || tpe_tipo
+       || ' '
+       || INITCAP (nomina.personal.prn_apellidos)
+       || ' '
+       || ' '
+       || INITCAP (nomina.personal.prn_nombres)
+       || ','
+       || ' bajo régimen laboral '
+       || nomina.regimen_laboral.rgl_regimenlaboral
+       || ','
+       || ' '
+       || nomina.tipo_relacion_laboral.trl_tiporelacion
+       || ' con cédula de Ciudadania N°'
+       || ' '
+       || nomina.personal.prn_numdocumento
+       || ' ingresó a laborar en esta casa de salud desde el '
+       || TO_CHAR (nomina.personal.prn_fechaingreso,
+                   'fmdd',
+                   'nls_date_language = spanish')
+       || ' de '
+       || TO_CHAR (nomina.personal.prn_fechaingreso,
+                   'fmmonth',
+                   'nls_date_language = spanish')
+       || ' del '
+       || TO_CHAR (nomina.personal.prn_fechaingreso,
+                   'fmyyyy',
+                   'nls_date_language = spanish')
+       || ','
+       || ' con el cargo de "'
+       || INITCAP (nomina.categoria_cargo.ccg_nombre)
+       || '" '
+       || (CASE
+              WHEN nomina.personal.prn_fechasalida IS NULL
+              THEN
+                 ' hasta la presente fecha.'
+              ELSE
+                    ' hasta el '
+                 || TO_CHAR (nomina.personal.prn_fechasalida,
+                             'fmdd',
+                             'nls_date_language = spanish')
+                 || ' de '
+                 || TO_CHAR (nomina.personal.prn_fechasalida,
+                             'fmmonth',
+                             'nls_date_language = spanish')
+                 || ' del '
+                 || TO_CHAR (nomina.personal.prn_fechasalida,
+                             'fmyyyy',
+                             'nls_date_language = spanish')
+                 || '.'
+           END)
+          texto,
+          TO_CHAR (SYSDATE, 'fmdd', 'nls_date_language = spanish')
+       || ' de '
+       || TO_CHAR (SYSDATE, 'fmmonth', 'nls_date_language = spanish')
+       || ' del '
+       || TO_CHAR (SYSDATE, 'fmyyyy', 'nls_date_language = spanish')
+  FROM nomina.personal,
+       nomina.tipo_empleado,
+       nomina.regimen_laboral,
+       nomina.categoria_cargo,
+       nomina.tipo_relacion_laboral
+ WHERE     nomina.personal.tpe_idtipoempleado =
+              nomina.tipo_empleado.tpe_idtipoempleado
+       AND nomina.tipo_empleado.tpe_tipo <> 'Militar'
+       AND nomina.personal.prn_numdocumento = nvl( $P{CI} ,'-11111111111111')
+       AND nomina.personal.rgl_idregimen = nomina.regimen_laboral.rgl_idregimen
+       AND nomina.personal.trl_idtiporelacion = nomina.tipo_relacion_laboral.trl_idtiporelacion
+       AND nomina.personal.ccg_idcategoriacargo = nomina.categoria_cargo.ccg_idcategoriacargo]]>
+	</queryString>
+	<field name="TEXTO" class="java.lang.String"/>
+	<field name="TO_CHAR(SYSDATE,&apos;FMDD&apos;,&apos;NLS_DATE_LANGUAGE=SPANISH&apos;)||&apos;DE&apos;||TO_CHAR(SYSDATE,&apos;FMMONTH&apos;,&apos;NLS_DATE_LANGUAGE=SPANISH&apos;)||&apos;DEL&apos;||TO_CHAR(SYSDATE,&apos;FMYYYY&apos;,&apos;NLS_DATE_LANGUAGE=SPANISH&apos;)" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="325" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="99" width="486" height="23" uuid="43fcf6d2-b86b-44da-b9ce-ded81d0a4ac2"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMANDO CONJUNTO DE LAS FF.AA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="122" width="419" height="23" uuid="5c0c62c3-2ab3-4760-9969-4127e6fa09a6"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[HOSPITAL DE ESPECIALIDADES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="142" width="360" height="26" uuid="8d82d691-ea81-443f-8104-20a9d4a97cad"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[FUERZAS ARMADAS Nº 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="287" width="214" height="29" uuid="7129bb48-7213-4ecb-bc2d-3aceb606c9d5"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C E R T I F I C A]]></text>
+			</staticText>
+			<image>
+				<reportElement x="230" y="16" width="116" height="68" uuid="55afb202-d11f-409f-9aec-51c59b2ce4f4"/>
+				<imageExpression><![CDATA[$P{escudo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="12" y="186" width="519" height="89" uuid="5794da5a-0412-40e9-ab07-659ba22a1efa"/>
+				<textElement textAlignment="Justified">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EL    SUSCRITO     SEÑOR      MAYO.      TEC.     AVC.         CRISTIAN       MORENO; DIRECTOR    DE     RECURSOS     HUMANOS     DEL       HE-1;        A      PETICION VERBAL     DE    LA    PARTE     INTERESADA.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="12" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="8" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="145" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="4" width="519" height="112" uuid="0e47fdcb-1922-423d-8cee-3f8c79dafaf3"/>
+				<textElement textAlignment="Justified">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TEXTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="116" width="156" height="21" uuid="58887758-2db9-4cf6-a98e-bfaa4598d07c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TO_CHAR(SYSDATE,'FMDD','NLS_DATE_LANGUAGE=SPANISH')||'DE'||TO_CHAR(SYSDATE,'FMMONTH','NLS_DATE_LANGUAGE=SPANISH')||'DEL'||TO_CHAR(SYSDATE,'FMYYYY','NLS_DATE_LANGUAGE=SPANISH')}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="351" y="118" width="48" height="20" uuid="8fe58f3c-3d2e-4749-9b24-002eed760ff5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[QUITO,]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="245" splitType="Stretch">
+			<staticText>
+				<reportElement x="159" y="73" width="237" height="16" uuid="bbcad218-5e80-4091-99cd-5fd1c9d47925"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CRISTIAN MORENO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="89" width="155" height="16" uuid="101f9818-1ad0-41d3-b0e8-e6c6d9597bcf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MAYO. TEC. AVC.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="105" width="428" height="16" uuid="64546b62-46aa-4e79-b60f-1396310fe5e5"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECTOR  DE  RECURSOS  HUMANOS  DEL  H.E-1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="162" width="114" height="9" uuid="34e0c679-5a79-4c4c-9086-d193edd82f90"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Emitido por:   NOMINA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="179" width="69" height="9" uuid="b3a29672-8acc-42fd-8a36-efec9d1178c2"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Archivo. HE-1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="220" width="209" height="9" uuid="0294485d-402e-41d6-9f66-db4b1d77d101"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Direcciòn: Av. Queseras del Medio N. 521 y Av. Gran Colombia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="210" width="114" height="9" uuid="c7379c38-c679-474d-8dce-caaafe8d0e29"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Telefono 3968300 ext. 1213]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="229" width="114" height="9" uuid="84d1694f-27a7-43c0-b36d-476ed29be6ea"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Correo: www.hospitalmilitar.mil.ec.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="219" y="20" width="154" height="55" uuid="80d2fbaa-c980-4b25-a82c-cb48d5cfe3fc"/>
+				<imageExpression><![CDATA[$P{firma}]]></imageExpression>
+			</image>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="19" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="6" splitType="Stretch"/>
+	</summary>
+</jasperReport>
